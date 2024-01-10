@@ -65,4 +65,4 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--full", action="store_true")
     parser.add_argument("-s", "--snap", action="store_true")
     flags = parser.parse_args()
-    main(full_render=flags.full, snap=not flags.snap)
+    main(full_render=flags.full, snap=flags.snap)

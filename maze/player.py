@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from collections import deque
-from .maze import Maze
-from .theme import Theme, DEFAULT_THEME
 from itertools import pairwise
 
+from .maze import Maze
+from .theme import Theme, DEFAULT_THEME
 from .cell import Cell, CardinalDirection, intersections, CARDINAL_DIRECTIONS, CellType
 
 __all__ = ("Player",)
@@ -130,7 +130,9 @@ class Player:
             if self.cell.hallways[direction]:
                 _, getter = intersections[direction]
                 next = getter(self.cell.coord).get(self.maze)
+            else:
+                next = None
 
-                if next:
-                    self.moves.append(self.cell)
-                    self.cell = next
+        if next:
+            self.moves.append(self.cell)
+            self.cell = next

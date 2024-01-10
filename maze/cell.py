@@ -10,11 +10,19 @@ CardinalDirection: TypeAlias = Literal["N", "S", "E", "W"]
 CARDINAL_DIRECTIONS: list[CardinalDirection] = ["N", "S", "E", "W"]
 
 # fmt: off
+
+def point_as_actual(update_func: Callable[[int, int], tuple[int, int]]):
+    def wrapper(point: Point) -> Point:
+        x, y = update_func(*point.actual())
+        return Point(x, y, is_actual=True)
+    
+    return wrapper
+
 intersections: dict[CardinalDirection,tuple[tuple[CardinalDirection, CardinalDirection], Callable[[Point], Point]]] = {
-    "N": (("W", "E"), lambda p: Point(p.x, p.y - (1 + p.is_actual), is_actual=p.is_actual)),
-    "S": (("E", "W"), lambda p: Point(p.x, p.y + (1 + p.is_actual), is_actual=p.is_actual)),
-    "W": (("S", "N"), lambda p: Point(p.x - (1 + p.is_actual), p.y, is_actual=p.is_actual)),
-    "E": (("N", "S"), lambda p: Point(p.x + (1 + p.is_actual), p.y, is_actual=p.is_actual))
+    "N": (("W", "E"), point_as_actual(lambda x, y: (x, y - 1))),
+    "S": (("E", "W"), point_as_actual(lambda x, y: (x, y + 1))),
+    "W": (("S", "N"), point_as_actual(lambda x, y: (x - 1, y))),
+    "E": (("N", "S"), point_as_actual(lambda x, y: (x + 1, y)))
 }
 
 # fmt: on

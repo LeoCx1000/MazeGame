@@ -76,22 +76,34 @@ class Maze:
             next, direction = random.choice(neighbours)
             next.type = CellType.tile
             x, y = current.coord.midway(next.coord)
-            self.grid[y][x].type = CellType.tile
+            midway = self.grid[y][x]
+            midway.type = CellType.tile
 
             # Set the directions that we can go towards.
             match direction:
                 case "N":
                     current.hallways.N = True
                     next.hallways.S = True
+                    midway.hallways.N = True
+                    midway.hallways.S = True
+
                 case "S":
                     current.hallways.S = True
                     next.hallways.N = True
+                    midway.hallways.N = True
+                    midway.hallways.S = True
+
                 case "W":
                     current.hallways.W = True
                     next.hallways.E = True
+                    midway.hallways.W = True
+                    midway.hallways.E = True
+
                 case "E":
                     current.hallways.E = True
                     next.hallways.W = True
+                    midway.hallways.W = True
+                    midway.hallways.E = True
 
             stack.append(next)
 
