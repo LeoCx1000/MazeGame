@@ -1,0 +1,10 @@
+CurrentRoom {
+    width: 50vw;
+    height: 100vh;
+}
+
+Map {
+    background: $boost;
+    width: 50vw;
+    height: 100vh;
+}

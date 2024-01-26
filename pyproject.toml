@@ -19,7 +19,7 @@ reportUnnecessaryTypeIgnoreComment = "warning"
 reportImportCycles = false
 
 [tool.black]
-line-length = 150
+line-length = 125
 
 [tool.isort]
 profile = "black"
